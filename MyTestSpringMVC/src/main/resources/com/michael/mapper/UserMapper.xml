@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.michael.mapper.UserMapper">
+    <select id="searchUserByUserId" parameterType="int" resultType="User">
+        SELECT * FROM user WHERE id=#{0}; <!-- #{xxx} xxx为类中的数据域名称 -->
+    </select>
+    <insert id="insertUser">
+        insert into user(username, userage)
+        values(#{0}, #{1});
+    </insert>
+</mapper>
