@@ -24,7 +24,11 @@
 		<context:annotation-config></context:annotation-config>
 		<!--使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入-->
 	 	<!-- base-package为需要扫描的包（含所有子包）  -->
-		<context:component-scan base-package="com.michael"/>
+		<context:component-scan base-package="com.michael">
+            <context:exclude-filter type="annotation"
+                                    expression="org.springframework.stereotype.Controller" />
+        </context:component-scan>
+
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -66,7 +70,7 @@
         <property name="password" value="mima_mima" />
     </bean>
 
-    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
@@ -95,6 +99,10 @@
         <!--<property name="sqlSessionFactoryBeanName" ref="sqlSessionFactory"/>-->
     <!--</bean>-->
 
+    <!--<bean id="userService" class="com.michael.service.UserService">-->
+        <!--<property name="userMapper" ref="userMapper"/>-->
+    <!--</bean>-->
+
     <bean id="exactUserService" class="com.michael.service.UserService">
         <property name="userMapper" ref="userMapper"/>
     </bean>
@@ -111,9 +119,12 @@
             <ref local="exactUserService"/>
         </property>
     </bean>
+
+    <!--<aop:aspectj-autoproxy/>-->
+
     <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
         <!--<property name="mapperInterface" value="com.michael.mapper.UserMapper"/>-->
         <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>-->
     <!--</bean>-->
-    <aop:aspectj-autoproxy/>
+    <!--<aop:aspectj-autoproxy/>-->
 </beans>

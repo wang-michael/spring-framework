@@ -1,21 +1,20 @@
-<beans  xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans     
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd  
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd  
-        ">
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:component-scan base-package="com.michael.controller" />
+    <context:component-scan base-package="com.aoptest.aop" />
 
     <!--<mvc:annotation-driven>会自动注册RequestMappingHandlerMapping与RequestMappingHandlerAdapter两个Bean,这是Spring MVC为@Controller分发请求所必需的-->
     <mvc:annotation-driven />
@@ -45,7 +44,21 @@
             </list>
         </property>
     </bean>
-    
+
+    <!--
+    通过aop命名空间的<aop:aspectj-autoproxy />声明自动为spring容器中那些配置@aspectJ切面的bean创建代理，织入切面。当然，spring
+    在内部依旧采用AnnotationAwareAspectJAutoProxyCreator进行自动代理的创建工作，但具体实现的细节已经被<aop:aspectj-autoproxy />
+    隐藏起来了
+    -->
+    <!--<bean id="user" class="com.michael.model.User" >-->
+        <!--<property name="id" value="2" />-->
+        <!--<property name="userName" value="springMVC-servlet.xml" />-->
+        <!--<property name="userAge" value="2" />-->
+    <!--</bean>-->
+    <!--<bean id="catBeanPostProcessor" class="com.michael.beanpostprocessor.UserBeanPostProcessor" />-->
+
+
+    <aop:aspectj-autoproxy/>
     <!--<bean-->
         <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
         <!--<property name="prefix">-->
